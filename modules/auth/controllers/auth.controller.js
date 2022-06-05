@@ -5,16 +5,29 @@ const User = require('../../../models/User');
 const db = require('../../../db/db');
 
 
-exports.userRegister = async (req, res, next) => {
-  const {userName, email } = req.body
+exports.userRegister = async (req, res) => {
+  const {userName, email, password } = req.body
   try {
+    if (!userName || !email || !password){
+      return res.status(400).send({
+        message: 'Missing required field(s)!'
+      });
+    }
+
+    const emailExist = await User.findOne({ email });
+    if (emailExist) {
+      return res.status(400).send({
+        message: 'Email already exist!'
+      });
+    }
+
     const addUser = await User.create(req.body)
 
     res.json(addUser);
     
   } catch (err) {
-    return res.status(400).send({
-      message: err
+    res.status(500).send({
+      err : 'Internal server error!'
     });
   }
 }
@@ -23,9 +36,17 @@ exports.userLogin = async (req, res) => {
   const { password, email } = req.body;
 
   try {
+    if (!email || !password){
+      return res.status(400).send({
+        message: 'Missing required field(s)!'
+      });
+    }
+
     const loginEmail = await User.findOne({ email });
     if (!loginEmail) {
-      throw new Error ('Invalid email or password');
+      return res.status(400).send({
+        message: 'Invalid email or password!'
+      });
     }
 
     const loginPassword = bcrypt.compareSync(
@@ -34,7 +55,9 @@ exports.userLogin = async (req, res) => {
     );
 
     if (!loginPassword) {
-      throw new Error ('Invalid email or password');
+      return res.status(400).send({
+        message: 'Invalid email or password!'
+      });
     }
     
     const key = process.env.SECRETKEY;
@@ -48,8 +71,9 @@ exports.userLogin = async (req, res) => {
       access_token: token
     }); 
   } catch (err) {
-    console.log(err)
-    res.send(err);
+    res.status(500).send({
+      err : 'Internal server error!'
+    });
   }
 }
 
