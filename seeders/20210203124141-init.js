@@ -3,46 +3,26 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'user',
+      'User',
       [
         {
           id: 1,
-          name: 'user1',
+          user_name: 'user1',
           email: 'user1@test.com',
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
           id: 2,
-          name: 'user2',
+          user_name: 'user2',
           email: 'user2@test.com',
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
           id: 3,
-          name: 'user3',
+          user_name: 'user3',
           email: 'user3@test.com',
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-      ],
-      {}
-    );
-    await queryInterface.bulkInsert(
-      'channel',
-      [
-        {
-          id: 1,
-          name: 'channel1',
-          user_id: 1,
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 2,
-          name: 'channel2',
-          user_id: 2,
           created_at: new Date(),
           updated_at: new Date(),
         },
@@ -51,26 +31,26 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      'video',
+      'Video',
       [
         {
           id: 1,
-          title: 'video1ByUser1',
-          channel_id: 1,
+          name: 'video1ByUser1',
+          user_id: 1,
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
           id: 2,
-          title: 'video2ByUser1',
-          channel_id: 1,
+          name: 'video2ByUser1',
+          user_id: 1,
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
           id: 3,
-          title: 'video3ByUser2',
-          channel_id: 2,
+          name: 'video3ByUser2',
+          user_id: 2,
           created_at: new Date(),
           updated_at: new Date(),
         },
@@ -86,8 +66,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('channel', null, bulkDeleteOptions);
-    await queryInterface.bulkDelete('video', null, bulkDeleteOptions);
-    await queryInterface.bulkDelete('user', null, bulkDeleteOptions);
+    await queryInterface.bulkDelete('Video', null, bulkDeleteOptions);
+    await queryInterface.bulkDelete('User', null, bulkDeleteOptions);
   },
 };
