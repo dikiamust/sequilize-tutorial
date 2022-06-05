@@ -12,8 +12,12 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan(':method :url :response-time :status'))
 
+app.get('/', (req, res) => res.send('Welcome to Api Sequelize Tutorial'))
+
 app.use(authRouter)
 app.use(videoRouter)
 
-app.listen(8080, () => console.log('server listening on port 8080'));
+const port = process.env.PORT || 8080
+
+app.listen(8080, () => console.log(`Server is listening on http://locahost:${port}`));
 
