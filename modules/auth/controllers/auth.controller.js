@@ -6,7 +6,8 @@ const db = require('../../../db/db');
 
 
 exports.userRegister = async (req, res) => {
-  const {userName, email, password } = req.body
+  const {userName, email } = req.body
+  // const password = 
   try {
     if (!userName || !email || !password){
       return res.status(400).send({
@@ -14,16 +15,19 @@ exports.userRegister = async (req, res) => {
       });
     }
 
-    const emailExist = await User.findOne({ email });
+    const emailExist = await User.findOne({ where : { email }});
     if (emailExist) {
       return res.status(400).send({
         message: 'Email already exist!'
       });
     }
 
-    const addUser = await User.create(req.body)
+    const addUser = await User.create({ userName, email, password })
 
-    res.json(addUser);
+    res.status(200).json({
+      message: "Created!",
+      data: addUser
+    });
     
   } catch (err) {
     res.status(500).send({
