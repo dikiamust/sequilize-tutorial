@@ -19,5 +19,15 @@ app.use(videoRouter)
 
 const port = process.env.PORT || 8080
 
-app.listen(8080, () => console.log(`Server is listening on http://locahost:${port}`));
+const start = async () => {
+    try {
+      app.listen(port, () =>
+       console.log(`Server is listening on http://localhost:${port}`)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+};
+  
+start();
 
