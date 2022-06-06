@@ -23,7 +23,7 @@ exports.userRegister = async (req, res, next) => {
     const addUser = await User.create({ userName, email, password })
 
     res.status(200).json({
-      message: "Created!",
+      message: 'Created!',
       data: {id : addUser.id , email : addUser.email }
     }); 
 
@@ -56,11 +56,11 @@ exports.userLogin = async (req, res, next) => {
     
     const key = process.env.SECRETKEY;
     let token = jwt.sign({id: loginEmail.id}, key, {
-      expiresIn: "1h",
+      expiresIn: '1h',
     });
 
     res.status(200).json({
-      message: "login successful!",
+      message: 'Login successfull!',
       data: loginEmail,
       access_token: token
     }); 
