@@ -22,7 +22,7 @@ exports.userRegister = async (req, res, next) => {
 
     const addUser = await User.create({ userName, email, password })
 
-    return res.status(200).json({
+    res.status(200).json({
       message: "Created!",
       data: {id : addUser.id , email : addUser.email }
     }); 
