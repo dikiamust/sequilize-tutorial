@@ -7,7 +7,8 @@ const db = require('../../../db/db');
 
 exports.userRegister = async (req, res) => {
   const {userName, email } = req.body
-  // const password = 
+  const password = bcrypt.hashSync(req.body.password, 8)
+
   try {
     if (!userName || !email || !password){
       return res.status(400).send({
@@ -29,10 +30,8 @@ exports.userRegister = async (req, res) => {
       data: addUser
     });
     
-  } catch (err) {
-    res.status(500).send({
-      err : 'Internal server error!'
-    });
+  } catch (error) {
+    res.status(500).send({ error });
   }
 }
 

@@ -9,7 +9,7 @@ const morgan = require('morgan')
 const app = express();
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan(':method :url :response-time :status'))
 
 app.get('/', (req, res) => res.send('Welcome to Api Sequelize Tutorial'))
