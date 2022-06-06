@@ -5,13 +5,12 @@ const db = require('./db/db');
 const authRouter = require('./modules/auth/routes/auth.routes');
 const videoRouter = require('./modules/video/routes/video.routes')
 const morgan = require('morgan')
-const errorHandlerMiddleware = require('./utils/errorHandler')
 const notFoundRout = require('./utils/notFoundRout')
 
 const app = express();
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(morgan(':method :url :response-time :status'))
 
 app.get('/', (req, res) => res.send('Welcome to Api Sequelize Tutorial'))
@@ -21,7 +20,6 @@ app.use(videoRouter)
 
 // middleware
 app.use(notFoundRout);
-app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 8080
 
