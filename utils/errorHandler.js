@@ -1,34 +1,40 @@
-const { StatusCodes } = require('http-status-codes')
 const errorHandlerMiddleware = (err, req, res, next) => {
-  // console.log(err);
-  let customError = {
-    // set default
-    statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    msg: err.message || 'Something went wrong try again later',
-  }
+  let code;
+  let name = err.name;
+  let message;
+  console.log('Error: ', err)
 
-  // if (err instanceof CustomAPIError) {
-  //   return res.status(err.statusCode).json({ msg: err.message })
-  // }
+  switch (name) {
+    case 'NOT_NULLABBLE':
+      code = 400;
+      message = 'Missing required field(s)!';
+      break;
 
-  if (err.name === 'ValidationError') {
-    customError.msg = Object.values(err.errors)
-      .map((item) => item.message)
-      .join(',')
-    customError.statusCode = 400
-  }
-  if (err.code && err.code === 11000) {
-    customError.msg = `Duplicate value entered for ${Object.keys(
-      err.keyValue
-    )} field, please choose another value`
-    customError.statusCode = 400
-  }
-  if (err.name === 'CastError') {
-    customError.msg = `No item found with id : ${err.value}`
-    customError.statusCode = 404
-  }
+    case 'EMAIL_EXIST':
+      code = 400;
+      message = 'Email already exist!';
+      break;
 
-  return res.status(customError.statusCode).json({ msg: customError.msg })
-}
+    case 'FALSE_LOGIN':
+      code = 401;
+      message = 'Invalid email or password!';
+      break;
 
-module.exports = errorHandlerMiddleware
+    case 'INVALID_TOKEN':
+      code = 401;
+      message = 'Invalid Access token!';
+      break;
+
+    case 'MISSING_TOKEN':
+      code = 401;
+      message = 'Missing Access token!';
+      break;
+
+    default:
+      code = 500;
+      message = 'Internal server error!';
+  }
+  res.status(code).json({success: false, message});
+};
+
+module.exports = errorHandlerMiddleware;

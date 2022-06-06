@@ -6,6 +6,7 @@ const authRouter = require('./modules/auth/routes/auth.routes');
 const videoRouter = require('./modules/video/routes/video.routes')
 const morgan = require('morgan')
 const notFoundRout = require('./utils/notFoundRout')
+const errorHandlerMiddleware = require('./utils/errorHandler')
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(videoRouter)
 
 // middleware
 app.use(notFoundRout);
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 8080
 
