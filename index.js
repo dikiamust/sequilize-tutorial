@@ -5,6 +5,8 @@ const db = require('./db/db');
 const authRouter = require('./modules/auth/routes/auth.routes');
 const videoRouter = require('./modules/video/routes/video.routes')
 const morgan = require('morgan')
+const errorHandlerMiddleware = require('./utils/errorHandler')
+const notFoundRout = require('./utils/notFoundRout')
 
 const app = express();
 
@@ -16,6 +18,10 @@ app.get('/', (req, res) => res.send('Welcome to Api Sequelize Tutorial'))
 
 app.use(authRouter)
 app.use(videoRouter)
+
+// middleware
+app.use(notFoundRout);
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 8080
 
