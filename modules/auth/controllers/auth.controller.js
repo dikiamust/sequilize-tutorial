@@ -40,7 +40,7 @@ exports.userLogin = async (req, res, next) => {
       throw { name : 'NOT_NULLABBLE'}
     }
 
-    const loginEmail = await User.findOne({ email });
+    const loginEmail = await User.findOne({ where : { email }});
     if (!loginEmail) {
       throw { name :  'FALSE_LOGIN' }
     }
