@@ -30,6 +30,11 @@ const errorHandlerMiddleware = (err, req, res, next) => {
       message = 'Missing Access token!';
       break;
 
+    case 'FORBIDDEN':
+      code = 403;
+      message = 'Forbidden access!';
+      break;
+
     default:
       code = 500;
       message = 'Internal server error!';

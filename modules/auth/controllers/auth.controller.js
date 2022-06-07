@@ -24,7 +24,7 @@ exports.userRegister = async (req, res, next) => {
 
     res.status(200).json({
       message: 'Created!',
-      data: {id : addUser.id , email : addUser.email }
+      data: { id : addUser.id , email : addUser.email }
     }); 
 
   } catch (err) {
@@ -61,7 +61,7 @@ exports.userLogin = async (req, res, next) => {
 
     res.status(200).json({
       message: 'Login successfull!',
-      data: loginEmail,
+      data: { id : loginEmail.id , email : loginEmail.email, userName : loginEmail.userName },
       access_token: token
     }); 
   } catch (err) {

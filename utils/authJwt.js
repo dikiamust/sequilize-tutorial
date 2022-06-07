@@ -6,21 +6,19 @@ class AuthJwt {
   static authentication(req, res, next) {
     const { access_token } = req.headers;
     if (!access_token) {
-      return res.status(401).json({
-        success: false,
-        message: "Missing access_token",
-      });
+      throw { neme : 'MISSING_TOKEN'}
     }
+
     const key = process.env.SECRETKEY;
-    jwt.verify(access_token, key, (err, decoded) => {
-      if (err) {
-        res
-          .status(401)
-          .json({message: "Invalid access_token", success: false, data: err});
-      }
-      req.UserId = decoded.id;
-      next();
-    });
+
+    try {
+      const payload = jwt.verify(access_token, key)
+      // attach the user to the job routes
+      req.user = { userId: payload.id }
+      next()
+    } catch (error) {
+      throw { name : 'INVALID_TOKEN'}
+    }
   }
 
   static async authorization(req, res, next) {
@@ -29,19 +27,13 @@ class AuthJwt {
     const searchUser = await User.findById(UserId);
 
     try {
-      if (searchUser.id.toString() !== id) {
-        res.status(401).json({
-          success: false,
-          message: "Forbidden access",
-        });
-      } else {
+      if (searchUser.id === id) {
         next();
+      } else {
+        throw { name : 'FORBIDDEN'}
       }
     } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: "internal server error",
-      });
+      next(err)
     }
   }
 }
