@@ -6,7 +6,7 @@ class AuthJwt {
   static authentication(req, res, next) {
     const { access_token } = req.headers;
     if (!access_token) {
-      throw { neme : 'MISSING_TOKEN'}
+      throw { name : 'MISSING_TOKEN'}
     }
 
     const key = process.env.SECRETKEY;
