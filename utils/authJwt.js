@@ -29,9 +29,8 @@ class AuthJwt {
     try {
       if (searchUser.id === id) {
         next();
-      } else {
-        throw { name : 'FORBIDDEN'}
-      }
+      }    
+      throw { name : 'FORBIDDEN'}
     } catch (err) {
       next(err)
     }
