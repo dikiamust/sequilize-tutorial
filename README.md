@@ -84,3 +84,6 @@ This will:
 - `npm run migrate`: executes all migrations in `./db/migrations`
 - `npm run make-seed`: create a new seed file
 - `npm run seed`: execute all seed files to pre-populate database
+
+# Pug utilities
+After run 'npm run pug', it will make html dir inside views directory, you can remove that directory (html directory)
