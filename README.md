@@ -87,3 +87,6 @@ This will:
 
 # Pug utilities
 After run 'npm run pug', it will make html dir inside views directory, you can remove that directory (html directory)
+
+# Website converte hmtl to pug file 
+https://html-to-pug.com/
