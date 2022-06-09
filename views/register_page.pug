@@ -1,0 +1,25 @@
+extends login_page_root
+block content
+    block login
+    div(class="wrapper-login-form text-center")
+        form(class="form-signin" method="POST" action="/api/sign-up")
+            #error
+                if error
+                    p.text-danger Error!!!
+
+            - var h1Classes = ['h3', 'mb-3', 'font-weight-normal']
+            h1(class=h1Classes) Please sign up
+
+            label( for="inputEmail" class="sr-only") Email address
+            input(type="name" name="userName" id="inputEmail" class="form-control" placeholder="User name" required autofocus)
+          
+            label( for="inputEmail" class="sr-only") Email address
+            input(type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus)
+
+            label(for="inputPassword" class="sr-only") Password
+            input(type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required)
+
+            - var buttonClass=['btn', 'btn-lg', 'btn-primary', 'btn-block'];
+            button(class=buttonClass type="submit") Sign up
+
+            - var pClasses=['mt-5', 'mb-3', 'text-muted'];
