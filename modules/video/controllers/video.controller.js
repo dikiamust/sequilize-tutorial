@@ -13,8 +13,11 @@ exports.addVideo = async (req, res) => {
     }
 
     const addVideo = await Video.create(req.body)
-
-    res.json(addVideo);
+    
+    res.status(201).json({
+      message: 'Created!',
+      data: addVideo
+    }); 
     
   } catch (err) {
     res.status(500).send({
