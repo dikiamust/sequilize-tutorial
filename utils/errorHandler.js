@@ -34,6 +34,11 @@ const errorHandlerMiddleware = (err, req, res, next) => {
       code = 403;
       message = 'Forbidden access!';
       break;
+      
+    case 'NOT_FOUND':
+      code = 200;
+      message = 'Data not found!';
+      break;
 
     default:
       code = 500;

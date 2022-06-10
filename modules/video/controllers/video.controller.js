@@ -3,13 +3,11 @@ const db = require('../../../db/db');
 const Video = require('../../../models/Video');
 
 
-exports.addVideo = async (req, res) => {
+exports.addVideo = async (req, res, next) => {
   const { name, userId } = req.body
   try {
     if (!name || !userId ){
-      return res.status(400).send({
-        message: 'Missing required field(s)!'
-      });
+      throw { name : 'NOT_NULLABBLE'}
     }
 
     const addVideo = await Video.create(req.body)
@@ -20,10 +18,28 @@ exports.addVideo = async (req, res) => {
     }); 
     
   } catch (err) {
-    res.status(500).send({
-      err : 'Internal server error!'
-    });
+    next(err)
   }
 }
+
+exports.findAllVideo = async (req, res, next) => {
+  try {
+    const getAllVideo = await Video.findAll()
+
+    if (getAllVideo.length < 1 ){
+      throw { name : 'NOT_FOUND'}
+    }
+    
+    res.status(200).json({
+      message: 'Successfully!',
+      data: getAllVideo
+    }); 
+    
+  } catch (err) {
+    next(err)
+  }
+}
+
+
 
 
