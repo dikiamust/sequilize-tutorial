@@ -19,6 +19,7 @@ app.set("views", path.join(__dirname, "views"));
 app.get('/', (req, res) => res.render("homepage"));
 app.get('/page/login', (req, res) => res.render("login_page"));
 app.get('/page/register', (req, res) => res.render("register_page"));
+app.get('/page/maps', (req, res) => res.render("maps"));
 
 
 app.use(authRouter)
