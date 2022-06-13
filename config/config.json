@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "postgres",
-    "database": "sequelize_tutorial",
+    "password": "232323392",
+    "database": "db_coba",
     "host": "localhost",
     "dialect": "postgres"
   },

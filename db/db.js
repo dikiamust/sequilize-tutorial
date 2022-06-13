@@ -9,8 +9,8 @@ const databaseInit = new Sequelize({
   host: process.env.DATABASE_HOST,
   define: {
     freezeTableName: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
+    createdAt: "createdAt",
+    updatedAt: "updatedAt",
   },
 });
 
