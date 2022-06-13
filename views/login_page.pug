@@ -2,7 +2,8 @@ extends login_page_root
 block content
     block login
     div(class="wrapper-login-form text-center")
-        form(class="form-signin" method="POST" action="/api/sign-in")
+        //- form(class="form-signin" method="POST" action="/api/sign-in")
+        form(class="form-signin" @keyup="login")
             #error
                 if error
                     p.text-danger Error!!!
