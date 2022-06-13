@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "sequelize_tutorial",
+    "database": "backend_guidline",
     "host": "localhost",
     "dialect": "postgres"
   },

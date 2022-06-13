@@ -8,25 +8,52 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_name: {
+      name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: {
+          msg: 'This email is already taken.',
+        },
+        validate: {
+          isEmail: {
+            args: true,
+            msg: 'Email format is invalid',
+          },
+          notEmpty: true,
+        },
+        set(val) {
+          this.setDataValue('email', val.toLowerCase());
+        },
       },
-      created_at: {
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      salt: Sequelize.STRING,
+      photo: Sequelize.TEXT,
+      roleId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Role',
+          key: 'id',
+        },
+      },
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
 
-    await queryInterface.createTable('Video', {
+    await queryInterface.createTable('Role', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -36,26 +63,17 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'User',
-          key: 'id',
-        },
-      },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
       },
     });
   },
+
   down: async (queryInterface, Sequelize) => {
     // we can do this because it is the first migration
     await queryInterface.dropAllTables();

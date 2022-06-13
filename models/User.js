@@ -10,9 +10,9 @@ const User = db.define('User', {
     autoIncrement: true,
     primaryKey: true
   },
-  userName: {
+  name: {
     type: sequelize.STRING,
-    field: 'user_name',
+    field: 'name',
     allowNull: false,
   },
   email: {
@@ -27,13 +27,21 @@ const User = db.define('User', {
     type: sequelize.STRING,
     allowNull: false,
   },
+  roleId: {
+    type: sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Role',
+      key: 'id',
+    },
+  },
+  salt: sequelize.STRING,
+  photo: sequelize.TEXT,
   createdAt: {
     type: sequelize.DATE,
-    field: 'created_at',
   },
   updatedAt: {
     type: sequelize.DATE,
-    field: 'updated_at',
   },
 })
 
