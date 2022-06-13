@@ -1,25 +1,25 @@
-const { Sequelize } = require('sequelize');
-const dotenv = require('dotenv').config()
+const { Sequelize } = require("sequelize");
+const dotenv = require("dotenv").config();
 
 const databaseInit = new Sequelize({
-  dialect: 'postgres',
+  dialect: "postgres",
   database: process.env.DATABASE,
-  username:  process.env.DATABASE_USERNAME,
+  username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   host: process.env.DATABASE_HOST,
   define: {
     freezeTableName: true,
-    underscored: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    createdAt: "created_at",
+    updatedAt: "updated_at",
   },
 });
 
 module.exports = databaseInit;
 
-databaseInit.authenticate()
-  .then(() => console.log('Database connected!'))
-  .catch(err => console.log('Errr :', err))
+databaseInit
+  .authenticate()
+  .then(() => console.log("Database connected!"))
+  .catch((err) => console.log("Errr :", err));
 
 /*
 options.underscored - Converts all camelCased columns to underscored if true
