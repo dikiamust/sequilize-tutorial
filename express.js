@@ -26,7 +26,8 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => res.render('homepage'));
-app.get('/page/login', (req, res) => res.render('tes'));
+app.get('/page/login', (req, res) => res.render('login_page'));
+app.get('/page/login/success', (req, res) => res.render('after_login'));
 app.get('/page/register', (req, res) => res.render('register_page'));
 app.get('/page/maps', (req, res) => res.render('maps'));
 app.get('/page/video', (req, res) => res.render('video'));

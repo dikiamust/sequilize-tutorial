@@ -64,7 +64,6 @@ exports.userLogin = async (req, res, next) => {
       data: { id : loginEmail.id , email : loginEmail.email, userName : loginEmail.userName },
       access_token: token
     }); 
-    // res.render('after_login', { rows: { id : loginEmail.id , email : loginEmail.email, userName : loginEmail.userName } })
   } catch (err) {
     next(err)
   }
