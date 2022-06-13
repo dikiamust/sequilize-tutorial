@@ -1,6 +1,3 @@
-tasks : - integrasi
-        - portfolio, 
-
 'use strict';
 
 module.exports = {
@@ -36,5 +33,3 @@ module.exports = {
     );
   }
 };
-
-

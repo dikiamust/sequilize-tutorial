@@ -35,14 +35,6 @@ module.exports = {
       },
       salt: Sequelize.STRING,
       photo: Sequelize.TEXT,
-      roleId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Role',
-          key: 'id',
-        },
-      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

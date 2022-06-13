@@ -45,4 +45,10 @@ const User = db.define('User', {
   },
 })
 
+User.associate = function(models) {
+  User.belongsTo(models.Role, {
+    foreignKey: 'roleId',
+  });
+};
+
 module.exports = User;
