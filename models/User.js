@@ -10,31 +10,58 @@ const User = db.define('User', {
     autoIncrement: true,
     primaryKey: true
   },
-  userName: {
-    type: sequelize.STRING,
-    field: 'user_name',
+  name: {
+    type: sequelize.STRING(255),
     allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'Please input a name',
+      },
+    },
   },
   email: {
     type: sequelize.STRING,
-    validate: {
-      isEmail: true,
-    },
     allowNull: false,
-    unique: true
+    unique: {
+      msg: 'This email is already taken.',
+    },
+    validate: {
+      isEmail: {
+        args: true,
+        msg: 'Email format is invalid',
+      },
+      notEmpty: true,
+    },
+    set(val) {
+      this.setDataValue('email', val.toLowerCase());
+    },
   },
   password: {
     type: sequelize.STRING,
     allowNull: false,
   },
+  roleId: {
+    type: sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Role',
+      key: 'id',
+    },
+  },
+  salt: sequelize.STRING,
+  photo: sequelize.TEXT,
   createdAt: {
     type: sequelize.DATE,
-    field: 'created_at',
   },
   updatedAt: {
     type: sequelize.DATE,
-    field: 'updated_at',
   },
 })
+
+User.associate = (models) => {
+  User.belongsTo(models.Role, {
+    foreignKey: 'roleId',
+  });
+};
 
 module.exports = User;

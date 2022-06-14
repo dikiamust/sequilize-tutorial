@@ -13,23 +13,30 @@ html
     document.getElementById('play-button').addEventListener('click', async () => {
         console.log('document ready');
         try {
+            const name = document.getElementById('inputUserName').value;
             const email = document.getElementById('inputEmail').value;
             const password = document.getElementById('inputPassword').value;
+            const roleId = document.getElementById('inputRoleId').value;
 
-            const res = await fetch('http://127.0.0.1:8000/api/sign-in', {
+            const res = await fetch('http://127.0.0.1:8000/api/sign-up', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({email, password})
+                body: JSON.stringify({ name, email, password, roleId })
             });
 
-            if (res) window.location.href = "http://localhost:8000/page/login/success"
+            if (res) {
+              alert('Congrats, You have succesfully Registered!')
+              setTimeout(() => {
+                window.location.href = "http://localhost:8000/page/login"
+              }, 100);
+            }
                 
             const data = await res.json();
             console.log('response from API', data);  
         } catch (err) {
-            console.log('Error: ',err);
+            alert('Error: ',err);
         }
     });
   

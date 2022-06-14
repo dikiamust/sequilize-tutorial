@@ -1,63 +1,72 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('User', {
+    await queryInterface.createTable('MasterMenu', {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
+        primaryKey: true
+      },
+      title: {
+        type: Sequelize.STRING,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      icon: {
+        type: Sequelize.STRING,
+        defaultValue: ' ',
+      },
+      path: {
+        type: Sequelize.STRING,
+        defaultValue: ' ',
+      },
+      type: {
+        type: Sequelize.STRING,
+        defaultValue: ' ',
+      },
+      abstract: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      order: {
         type: Sequelize.INTEGER,
+        validate: {
+          notEmpty: true,
+        },
       },
-      user_name: {
-        type: Sequelize.STRING,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
 
-    await queryInterface.createTable('Video', {
+    await queryInterface.createTable('RoleMenu', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
-      user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'User',
-          key: 'id',
-        },
-      },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
       },
     });
   },
+
   down: async (queryInterface, Sequelize) => {
     // we can do this because it is the first migration
     await queryInterface.dropAllTables();
   },
 };
+

@@ -2,7 +2,6 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const db = require("./db/db");
 const authRouter = require("./modules/auth/routes/auth.routes");
-const videoRouter = require("./modules/video/routes/video.routes");
 const inquiryRouter = require("./modules/inquiry/routes/inquiry.routes");
 const morgan = require("morgan");
 const path = require("path");
@@ -26,15 +25,17 @@ app.use(cors(corsOptions));
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
-app.get("/", (req, res) => res.render("homepage"));
-app.get("/page/login", (req, res) => res.render("tes"));
-app.get("/page/register", (req, res) => res.render("register_page"));
-app.get("/page/maps", (req, res) => res.render("maps"));
-app.get("/page/video", (req, res) => res.render("video"));
-
 app.use(authRouter);
-app.use(videoRouter);
 app.use(inquiryRouter);
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+app.get('/', (req, res) => res.render('homepage'));
+app.get('/page/login', (req, res) => res.render('login_page'));
+app.get('/page/login/success', (req, res) => res.render('after_login'));
+app.get('/page/register', (req, res) => res.render('register_page'));
+app.get('/page/maps', (req, res) => res.render('maps'));
+
 
 // middleware
 app.use(notFoundRout);

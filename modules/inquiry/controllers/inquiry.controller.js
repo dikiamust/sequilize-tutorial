@@ -8,6 +8,7 @@ const emailMailer = require(path.resolve("./utils/email"));
 const fs = require("fs");
 const db = require(path.resolve("./db/db"));
 const Inquiry = require(path.resolve("./models/Inquiry"));
+const dotenv = require('dotenv').config();
 const { Op } = require("sequelize");
 
 /**
@@ -96,9 +97,9 @@ exports.sendInquiry = async function (req, res, next) {
     const { email, subject, message, name } = req.body;
 
     const templates = "modules/inquiry/templates/test.html";
-
+    const emailTo = process.env.EMAIL_TEST
     const mailOption = {
-      to: "agungprasetio@xcidic.com",
+      to: emailTo,
       from: email,
       subject: subject,
     };
