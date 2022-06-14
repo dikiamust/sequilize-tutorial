@@ -9,8 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'Please input a name',
+          },
+        },
       },
       email: {
         type: Sequelize.STRING,

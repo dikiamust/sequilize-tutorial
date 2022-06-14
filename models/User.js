@@ -11,17 +11,30 @@ const User = db.define('User', {
     primaryKey: true
   },
   name: {
-    type: sequelize.STRING,
-    field: 'name',
+    type: sequelize.STRING(255),
     allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'Please input a name',
+      },
+    },
   },
   email: {
     type: sequelize.STRING,
-    validate: {
-      isEmail: true,
-    },
     allowNull: false,
-    unique: true
+    unique: {
+      msg: 'This email is already taken.',
+    },
+    validate: {
+      isEmail: {
+        args: true,
+        msg: 'Email format is invalid',
+      },
+      notEmpty: true,
+    },
+    set(val) {
+      this.setDataValue('email', val.toLowerCase());
+    },
   },
   password: {
     type: sequelize.STRING,
