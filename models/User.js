@@ -58,7 +58,7 @@ const User = db.define('User', {
   },
 })
 
-User.associate = function(models) {
+User.associate = (models) => {
   User.belongsTo(models.Role, {
     foreignKey: 'roleId',
   });

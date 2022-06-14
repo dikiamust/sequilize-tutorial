@@ -1,5 +1,8 @@
 tasks : - integrasi
-        - portfolio, 
+        - portfolio
+
+
+//Script for migration add roleId Column in User Model
 
 'use strict';
 

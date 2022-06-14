@@ -46,7 +46,7 @@ const Acl = db.define('Acl', {
   },
 })
 
-Acl.associate = function (models) {
+Acl.associate = (models) => {
   Acl.belongsToMany(models.Role, { 
     through: 'AclRole', foreignKey: 'aclId'
   });
