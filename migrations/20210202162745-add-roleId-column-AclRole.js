@@ -14,15 +14,6 @@ module.exports = {
         key: 'id',
         },
       },
-      'aclId',
-      {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-        model: 'Acl',
-        key: 'id',
-        },
-      }
     )
   },
 
@@ -39,15 +30,6 @@ module.exports = {
         key: 'id',
         },
       },
-      'aclId',
-      {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-        model: 'Acl',
-        key: 'id',
-        },
-      }
     );
   }
 };
