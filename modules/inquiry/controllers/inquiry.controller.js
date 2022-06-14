@@ -101,10 +101,14 @@ exports.sendInquiry = async function (req, res, next) {
       to: "agungprasetio@xcidic.com",
       from: email,
       subject: subject,
-      html: fs.readFileSync(templates, "utf-8"),
     };
 
-    await emailMailer.sendEmail(mailOption);
+    const mailData = {
+      name,
+      message,
+    };
+
+    await emailMailer.sendEmail(templates, mailData, mailOption);
 
     const inquiry = await Inquiry.create({
       name,

@@ -9,10 +9,8 @@ const mailerOptions = {
   debug: true,
   secure: false,
   auth: {
-    user: process.env.MAILER_EMAIL_ID || "apikey",
-    pass:
-      process.env.MAILER_PASSWORD ||
-      "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",
+    user: process.env.MAILER_EMAIL_ID,
+    pass: process.env.MAILER_PASSWORD,
   },
   tls: {
     rejectUnauthorized: false,
