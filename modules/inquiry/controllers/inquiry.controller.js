@@ -64,7 +64,7 @@ exports.list = async function (req, res, next) {
  * @param  req.params id
  * @return Json
  */
-exports.read = async function (req, res) {
+exports.read = async function (req, res, next) {
   const id = req.params.id;
 
   try {
@@ -79,10 +79,8 @@ exports.read = async function (req, res) {
     return res.status(200).json({
       data: inquiry,
     });
-  } catch (e) {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(e),
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -130,7 +128,7 @@ exports.sendInquiry = async function (req, res, next) {
 /**
  * get status form
  */
-exports.getStatus = async function (req, res) {
+exports.getStatus = async function (req, res, next) {
   try {
     const setting = await Setting.findOne({
       where: { optionName: "isEnableEnquiries" },
@@ -143,9 +141,7 @@ exports.getStatus = async function (req, res) {
         status,
       },
     });
-  } catch (e) {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(e),
-    });
+  } catch (err) {
+    next(err)
   }
 };
