@@ -6,11 +6,11 @@ const db = require('../../../db/db');
 
 
 exports.userRegister = async (req, res, next) => {
-  const { userName, email } = req.body
+  const { name, email , roleId} = req.body
   const password = bcrypt.hashSync(req.body.password, 8)
 
   try {
-    if (!userName || !email || !password){
+    if (!name || !email || !password || !roleId){
       throw { name : 'NOT_NULLABBLE'}
     }
 
@@ -20,11 +20,11 @@ exports.userRegister = async (req, res, next) => {
       throw { name : 'EMAIL_EXIST' }
     }
 
-    const addUser = await User.create({ userName, email, password })
+    const addUser = await User.create({ name, email, password, roleId })
 
     res.status(201).json({
       message: 'Created!',
-      data: { id : addUser.id , email : addUser.email }
+      data: { id : addUser.id , email : addUser.email , roleId }
     }); 
 
   } catch (err) {

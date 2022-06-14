@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const db = require('./db/db');
 const authRouter = require('./modules/auth/routes/auth.routes');
-const videoRouter = require('./modules/video/routes/video.routes');
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
@@ -30,11 +29,8 @@ app.get('/page/login', (req, res) => res.render('login_page'));
 app.get('/page/login/success', (req, res) => res.render('after_login'));
 app.get('/page/register', (req, res) => res.render('register_page'));
 app.get('/page/maps', (req, res) => res.render('maps'));
-app.get('/page/video', (req, res) => res.render('video'));
-
 
 app.use(authRouter);
-app.use(videoRouter);
 
 // middleware
 app.use(notFoundRout);

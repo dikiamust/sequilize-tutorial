@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')
+    style 
+        include ./css/login_page.css
+    
+  body
+    include ./includes/nav
+    block content
+  script.
+    document.getElementById('play-button').addEventListener('click', async () => {
+        console.log('document ready');
+        try {
+            const name = document.getElementById('inputUserName').value;
+            const email = document.getElementById('inputEmail').value;
+            const password = document.getElementById('inputPassword').value;
+            const roleId = document.getElementById('inputRoleId').value;
+
+            const res = await fetch('http://127.0.0.1:8000/api/sign-up', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, email, password, roleId })
+            });
+
+            if (res) {
+              alert('Congrats, You have succesfully Registered!')
+              setTimeout(() => {
+                window.location.href = "http://localhost:8000/page/login"
+              }, 100);
+            }
+                
+            const data = await res.json();
+            console.log('response from API', data);  
+        } catch (err) {
+            alert('Error: ',err);
+        }
+    });
+  
+  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js')
