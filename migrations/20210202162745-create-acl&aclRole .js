@@ -36,6 +36,14 @@ module.exports = {
         allowNull: true,
         defaultValue: null,
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
     });
 
     await queryInterface.createTable('AclRole', {
